@@ -1,0 +1,5 @@
+Mandag 23 Februar 2026
+* la til filstruktur og installerte flask
+
+Fredag 27 Februar 2026
+* la til to-do list og changelog
