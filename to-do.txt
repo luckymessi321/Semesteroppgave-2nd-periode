@@ -1,0 +1,3 @@
+lage canvas element
+lage snake og mat
+kode bevegelseslogikk
