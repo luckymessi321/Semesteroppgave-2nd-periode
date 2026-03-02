@@ -2,7 +2,11 @@
 
 {% block title %} index {% endblock %}
 {% block content %}
-<canvas id="gameArea" width="600px" height="600px">
-    
-</canvas>
-{% endblock %}
+
+<!-- legger til en knapp for å starte spillet-->
+<button id="start">start/restart</button>
+<!-- legger til score i h2 -->
+<h2>Score <span id="score">0</span></h2>
+<div class="grid"></div>
+<script src="/static/script/script.js" defer></script>
+{% endblock %}  
