@@ -1,3 +1,2 @@
-lage canvas element
-lage snake og mat
-kode bevegelseslogikk
+lage en login page med brukernavn og passord
+lage en database med MySQL med 
