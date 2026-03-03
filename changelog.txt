@@ -13,3 +13,5 @@ Mandag 2 Mars 2026
 Tirsdag 3 Mars 2026
 * la til 2 nye sound effects
 * la til kode som lar spilleren stoppe musikken når de trykker 'm'
+* la til kode som får slangen til å flytte seg fortere hver gang den spiser et eple, men lar den ikke gå fortere en 1 square per 500ms
+* endret koden slik at den bruker setTimeout og ikke setInterval. dette gjør sånn at intervallet til move funksjonen kan endres i selve move funksjonen.
