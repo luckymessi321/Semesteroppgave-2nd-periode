@@ -3,3 +3,13 @@ Mandag 23 Februar 2026
 
 Fredag 27 Februar 2026
 * la til to-do list og changelog
+* la til et canvas element i index.html som skal fungere som spillområdet
+
+Mandag 2 Mars 2026
+* la til et script som lager en grid, lager en snake inne i grid-en, og lar spilleren flytte slangen med arrowkeys. denne grid-en erstatter canvas-elementet
+* la til en ny texture for snake klassen
+* la til 2 sound effects som spilles av når et eple blir spist og la til musikk som spilles av når spilleren trykker 'p'
+
+Tirsdag 3 Mars 2026
+* la til 2 nye sound effects
+* la til kode som lar spilleren stoppe musikken når de trykker 'm'
