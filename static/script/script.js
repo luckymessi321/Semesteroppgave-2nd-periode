@@ -1,16 +1,38 @@
 const grid = document.getElementsByClassName("grid")[0] 
 const startButton = document.getElementById("start")
 const score = document.getElementById("score")
+const music = new Audio('static/audio/invisible.mp3')
+const gasp = new Audio('static/audio/gasp.mp3')
+const voiceline = new Audio('static/audio/voiceline.mp3')
+const ammo = new Audio('static/audio/ammo.mp3')
+const snake = new Audio('static/audio/snake.mp3')
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
 let gridWidth = 10
 let appleIndex = 0
 let count = 0
+music.volume = 0.5
+snake.volume = 0.5
+
+function playGasp() {
+    let number = Math.floor(Math.random() * 100)
+    if (number >= 0 && number <= 25) {
+        ammo.play()
+    }else if (number >= 26 && number <= 50) {
+        gasp.play()
+    } else if (number >= 51 && number <= 75) {
+        voiceline.play()
+    } else if (number >= 76 && number <= 100) {
+        snake.play()
+    }
+    console.log(number)
+}
 
 function updateScore() {
     count++
     if (score) score.textContent = `${count}`;
+    playGasp()
 }
 
 function createGrid() {
@@ -40,6 +62,7 @@ function move() {
     ) {
         clearInterval(timerId)
         direction = 0
+        music.pause()
     }
     //fjerner siste element/firkant i currentSnake tabellen
     const tail = currentSnake.pop()
@@ -48,6 +71,7 @@ function move() {
     //legger til firkanter i retningen slangen flytter seg
     currentSnake.unshift(currentSnake[0] + direction)   
     //legger til styling til de nye firkantene
+    squares[currentSnake[0]].classList.add('snake')
     // bestemmer hva som skjer om snake spiser et eple
     if (squares[currentSnake[0]].classList.contains('apple')) {
         //fjerner klassen til eplet slik at det ser ut som om det ble spist
@@ -63,8 +87,6 @@ function move() {
         //legger til 1 til scoren
         updateScore()
     }
-
-    squares[currentSnake[0]].classList.add('snake')
 }
 move()
 const timerId = setInterval(move, 1000)
@@ -77,6 +99,12 @@ function generateApple () {
     squares[appleIndex].classList.add('apple') 
 }
 generateApple()
+
+function playMusic () {
+    music.loop = true
+    music.play()
+}
+
 
 function control(e) {
   // Use string values for the 'e.key' property for modern compatibility
@@ -97,3 +125,13 @@ function control(e) {
 
 // Pass a reference to the function 'control', do not call it with '()'
 document.addEventListener('keyup', control);
+
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'p' || event.key === 'P') {
+        playMusic()
+    }
+    if (event.key === 'm' || event.key === 'M') {
+        music.pause()
+    }
+});
