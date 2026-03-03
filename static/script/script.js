@@ -1,22 +1,60 @@
 const grid = document.getElementsByClassName("grid")[0] 
-const startButton = document.getElementById("start")
+const startDisplayButton = document.getElementById("start")
 const score = document.getElementById("score")
 const music = new Audio('static/audio/invisible.mp3')
 const gasp = new Audio('static/audio/gasp.mp3')
 const voiceline = new Audio('static/audio/voiceline.mp3')
 const ammo = new Audio('static/audio/ammo.mp3')
 const snake = new Audio('static/audio/snake.mp3')
+let buttonPressed = false
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
 let gridWidth = 10
 let appleIndex = 0
 let count = 0
+let currentInterval = 1000  
 music.volume = 0.5
 snake.volume = 0.5
-let currentInterval = 1000
 
-function playGasp() {
+
+function startButton () {
+    if (!buttonPressed) {
+        startGame()
+        buttonPressed = true
+    } else {
+        restartGame()
+    }
+}
+
+function startGame () {
+    if (buttonPressed) {
+        generateApple()
+        currentSnake.forEach(index => squares[index].classList.add('snake'))
+        console.log('game restarted')
+    } else {
+        createGrid()
+        currentSnake.forEach(index => squares[index].classList.add('snake'))
+        move()
+        generateApple()
+        console.log('game started')
+    }
+}
+
+function restartGame () {
+    squares.forEach(square => square.classList.remove('apple'))
+    currentSnake.forEach(index => squares[index].classList.remove('snake'))
+    currentSnake = [2,1,0]
+    direction = 1
+    gridWidth = 10
+    appleIndex = 0
+    count = 0
+    currentInterval = 1000
+    updateScore()
+    startGame()
+}
+
+function playSoundEffect() {
     let number = Math.floor(Math.random() * 100)
     if (number >= 0 && number <= 25) {
         ammo.play()
@@ -30,9 +68,7 @@ function playGasp() {
 }
 
 function updateScore() {
-    count++
     if (score) score.textContent = `${count}`;
-    playGasp()
 }
 
 function createGrid() {
@@ -48,9 +84,7 @@ function createGrid() {
         squares.push(square)
     }
 }
-createGrid()
 
-currentSnake.forEach(index => squares[index].classList.add('snake'))
 
 function move() {
     if (
@@ -62,6 +96,7 @@ function move() {
     ) {
         direction = 0
         music.pause()
+        console.log('game stopped')
     } else {
         //fjerner siste element/firkant i currentSnake tabellen
         const tail = currentSnake.pop()
@@ -82,16 +117,18 @@ function move() {
             //lager et nytt eple
             generateApple()
             //legger til 1 til scoren
+            count++
             updateScore()
+            playSoundEffect()
             //endrer farten på snake
             if (currentInterval > 500) {
                 currentInterval -= 50
             }
         }
         setTimeout(move, currentInterval)
+        console.log(currentSnake)
     }
 }
-move()
 
 function generateApple () {
     do {
@@ -100,11 +137,14 @@ function generateApple () {
     } while (squares[appleIndex].classList.contains('snake'))
     squares[appleIndex].classList.add('apple') 
 }
-generateApple()
 
-function playMusic () {
-    music.loop = true
-    music.play()
+function controlMusic (event) {
+    if (event.key === 'p' || event.key === 'P') {
+        music.play()
+    }
+    if (event.key === 'm' || event.key === 'M') {
+        music.pause()
+    }
 }
 
 
@@ -121,15 +161,7 @@ function control(e) {
   }
 }
 
-// Pass a reference to the function 'control', do not call it with '()'
+
 document.addEventListener('keydown', control);
-
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'p' || event.key === 'P') {
-        playMusic()
-    }
-    if (event.key === 'm' || event.key === 'M') {
-        music.pause()
-    }
-});
+document.addEventListener('keydown', controlMusic);
+startDisplayButton.addEventListener('click', startButton)
