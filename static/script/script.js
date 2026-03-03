@@ -14,6 +14,7 @@ let appleIndex = 0
 let count = 0
 music.volume = 0.5
 snake.volume = 0.5
+let currentInterval = 1000
 
 function playGasp() {
     let number = Math.floor(Math.random() * 100)
@@ -26,7 +27,6 @@ function playGasp() {
     } else if (number >= 76 && number <= 100) {
         snake.play()
     }
-    console.log(number)
 }
 
 function updateScore() {
@@ -60,36 +60,38 @@ function move() {
         (currentSnake[0] % 10 === 9 && direction === 1) || // om snake head er ved høyre vegg av grid
         squares[currentSnake[0] + direction].classList.contains('snake') // om snake crasher i seg selv
     ) {
-        clearInterval(timerId)
         direction = 0
         music.pause()
-    }
-    //fjerner siste element/firkant i currentSnake tabellen
-    const tail = currentSnake.pop()
-    //fjerner styling fra siste element/firkant
-    squares[tail].classList.remove('snake')
-    //legger til firkanter i retningen slangen flytter seg
-    currentSnake.unshift(currentSnake[0] + direction)   
-    //legger til styling til de nye firkantene
-    squares[currentSnake[0]].classList.add('snake')
-    // bestemmer hva som skjer om snake spiser et eple
-    if (squares[currentSnake[0]].classList.contains('apple')) {
-        //fjerner klassen til eplet slik at det ser ut som om det ble spist
-        squares[currentSnake[0]].classList.remove('apple')
-        //øker snake lengde
-        squares[tail].classList.add('snake')
-        console.log(tail)
-        //legger til en ny firkant i currentSnake slik at halen (tail) følger resten av snake
-        currentSnake.push(tail)
-        console.log(currentSnake)
-        //lager et nytt eple
-        generateApple()
-        //legger til 1 til scoren
-        updateScore()
+    } else {
+        //fjerner siste element/firkant i currentSnake tabellen
+        const tail = currentSnake.pop()
+        //fjerner styling fra siste element/firkant
+        squares[tail].classList.remove('snake')
+        //legger til firkanter i retningen slangen flytter seg
+        currentSnake.unshift(currentSnake[0] + direction)   
+        //legger til styling til de nye firkantene
+        squares[currentSnake[0]].classList.add('snake')
+        // bestemmer hva som skjer om snake spiser et eple
+        if (squares[currentSnake[0]].classList.contains('apple')) {
+            //fjerner klassen til eplet slik at det ser ut som om det ble spist
+            squares[currentSnake[0]].classList.remove('apple')
+            //øker snake lengde
+            squares[tail].classList.add('snake')
+            //legger til en ny firkant i currentSnake slik at halen (tail) følger resten av snake
+            currentSnake.push(tail)
+            //lager et nytt eple
+            generateApple()
+            //legger til 1 til scoren
+            updateScore()
+            //endrer farten på snake
+            if (currentInterval > 500) {
+                currentInterval -= 50
+            }
+        }
+        setTimeout(move, currentInterval)
     }
 }
 move()
-const timerId = setInterval(move, 1000)
 
 function generateApple () {
     do {
@@ -109,22 +111,18 @@ function playMusic () {
 function control(e) {
   // Use string values for the 'e.key' property for modern compatibility
   if (e.key === 'ArrowRight') {
-    console.log('right pressed');
     direction = 1
   } else if (e.key === 'ArrowUp') {
-    console.log('up pressed');
     direction = -gridWidth
   } else if (e.key === 'ArrowLeft') {
-    console.log('left pressed');
     direction = -1
-  } else if (e.key === 'ArrowDown') {
-    console.log('down pressed');
+  } else if (e.key === 'ArrowDown') {;
     direction = +gridWidth
   }
 }
 
 // Pass a reference to the function 'control', do not call it with '()'
-document.addEventListener('keyup', control);
+document.addEventListener('keydown', control);
 
 
 document.addEventListener('keydown', function(event) {
