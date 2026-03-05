@@ -1,2 +1,0 @@
-lage en login page med brukernavn og passord
-lage en database med MySQL med 
