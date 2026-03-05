@@ -28,17 +28,11 @@ function startButton () {
 }
 
 function startGame () {
-    if (buttonPressed) {
-        generateApple()
-        currentSnake.forEach(index => squares[index].classList.add('snake'))
-        console.log('game restarted')
-    } else {
-        createGrid()
-        currentSnake.forEach(index => squares[index].classList.add('snake'))
-        move()
-        generateApple()
-        console.log('game started')
-    }
+    createGrid()
+    currentSnake.forEach(index => squares[index].classList.add('snake'))
+    generateApple()
+    move()
+    console.log('game started')
 }
 
 function restartGame () {
@@ -51,7 +45,9 @@ function restartGame () {
     count = 0
     currentInterval = 1000
     updateScore()
-    startGame()
+    currentSnake.forEach(index => squares[index].classList.add('snake'))
+    generateApple()
+    console.log('game restarted')
 }
 
 function playSoundEffect() {
@@ -125,9 +121,8 @@ function move() {
                 currentInterval -= 50
             }
         }
-        setTimeout(move, currentInterval)
-        console.log(currentSnake)
     }
+    setTimeout(move, currentInterval)
 }
 
 function generateApple () {
