@@ -51,3 +51,4 @@ funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sen
 * la til README fil
 * la til kommentaren 'koden for funksjonen 'sendScore(score)' er tatt fra en venn sitt prosjekt' i script.js
 * redigerte readme fil
+* la til nytt script for avlogget versjon (script2.js). scriptet er det samme scriptet som script.js, men uten sendScore funksjonen.
