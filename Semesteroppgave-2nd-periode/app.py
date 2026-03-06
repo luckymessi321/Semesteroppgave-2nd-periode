@@ -5,6 +5,8 @@ from forms import RegisterForm, LoginForm
 
 
 app = Flask(__name__)
+# importert fra presentasjon
+app.secret_key = "hemmelig-nok"
 
 # funksjon som oppretter en tilkobling til databasen 'login' med brukeren 'lukas'
 def get_conn():
@@ -79,4 +81,4 @@ def login():
     return render_template("login.html", form=form)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
