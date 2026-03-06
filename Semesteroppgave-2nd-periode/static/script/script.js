@@ -37,6 +37,8 @@ function sendScore(score) {
         if(data.status === 'success'){
             console.log('score lagret', data)
         // logger at det var en feil og dataen mottatt i webkonsollen. denne koden kjører KUN når nøkkelen 'status' i data ikke har verdien 'success'
+        } else if (data.status === 'score too low') {
+            console.log('score too low', data)
         } else {
             console.log('feil ved lagring av score', data);
         }

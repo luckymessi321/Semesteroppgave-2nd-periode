@@ -20,7 +20,13 @@ def get_conn():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    #sjekker om spilleren er logget inn
+    if session['username']:
+        # sender brukeren til spillet
+        return render_template('index.html', highscore=session.get('score'), username = session['username'])
+    else:
+        # sender brukeren til en avlogget versjon av spillet
+        return render_template('index2.html') 
 
 # rute med kode som kjører KUN når register.html henter data fra app.py (GET), eller sender data til app.py (POST)
 @app.route("/register", methods=["GET", "POST"])
@@ -39,8 +45,8 @@ def register():
         cur = conn.cursor()
         # kjører MySQL kode på serveren som lagrer brukernavn og passord hentet fra '/register' ruten i databasen.
         cur.execute(
-            "INSERT INTO users (username, password) VALUES (%s, %s)",
-            (username, password)
+            "INSERT INTO users (username, password, score) VALUES (%s, %s, %s)",
+            (username, password, 0)
         )
         # lagrer endringene gjort i cur.execute og lukker tilkoblingen til databasen
         conn.commit()
@@ -63,7 +69,7 @@ def login():
         cur = conn.cursor()
         # kjører MySQL kode på serveren som henter brukernavnet til brukeren spilleren logget inn med
         cur.execute(
-            "SELECT username FROM users WHERE username=%s AND password=%s",
+            "SELECT username, score FROM users WHERE username=%s AND password=%s",
             (username, password)
         )
         # lagrer brukernavnet som variablen 'user'
@@ -73,8 +79,9 @@ def login():
         
         # kode som KUN kjører om spillerens brukernavn eksisterer
         if user:
-            # lagrer brukernavn i session-data og sender spilleren til '/' ruten
+            # lagrer brukernavn og score i session-data og sender spilleren til '/' ruten
             session['username'] = user[0]
+            session['score'] = user[1]
             return redirect("/")
         # returnerer feilmelding om brukernavn ikke finnes
         else:
@@ -86,9 +93,11 @@ def login():
 @app.route('/save_score', methods=["POST"]) # methods=["POST"] får koden til å KUN aktivere når ruten får en POST-request (mottar data)
 # funksjon som henter score fra 'script.js' og lagrer det i MySQL databasen
 def save_score():
-    # henter brukernavnet til brukeren lagret i '/login' ruten
+    # henter brukernavnet og highscore til brukeren lagret i '/login' ruten (linje 77 og 78)
     username = session.get('username')
-
+    highscore = session.get('score')
+    if highscore is None:
+        highscore = 0
     #  utfører en GET-request til script.js, leser resultatet som en JSON fil, konverterer resultatet til python format (.py), og lagrer resultatet som variablen 'data'. dette lar dataen bli brukt med metoder som .get(). 
     data = request.get_json()
     # lagrer verdien av nøkkelen 'score' i GET-requesten definert over som variablen score
@@ -96,16 +105,19 @@ def save_score():
 
     conn = get_conn()
     cur = conn.cursor()
-    # kjører MySQL kode på serveren som oppdaterer 'score' verdien under den innloggede til å være scoren hentet fra script.js 
-    cur.execute('UPDATE users SET score = %s WHERE username = %s', (score, username))
+    if int(score) >= int(highscore):
+        # kjører MySQL kode på serveren som oppdaterer 'score' verdien under den innloggede til å være scoren hentet fra script.js 
+        cur.execute('UPDATE users SET score = %s WHERE username = %s', (score, username))
 
-    # lagrer endringene gjort i cur.execute() og lukker tilkoblingen
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    # sender ordboken 'status : success' til script.js
-    return{'status': 'success'}
+        # lagrer endringene gjort i cur.execute() og lukker tilkoblingen
+        conn.commit()
+        cur.close()
+        conn.close()
+            
+        return{'status': 'score too low'}
+    else:
+        # sender ordboken 'status : success' til script.js
+        return{'status': 'success'}
 
 
 if __name__ == "__main__":

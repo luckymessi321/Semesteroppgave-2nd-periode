@@ -42,3 +42,9 @@ Fredag 6 Mars 2026
 ruten '/save_score' er en rute som KUN aktiveres når data er mottatt (POST-request) fra sendScore funksjonen, og lagrer dataen i MySQL databasen under kolonnen 'score'
 funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sender scoren din til ruten i app.py. denne funksjonen kjører når spillet restarter
 
+* endret koden slik at highscore automatisk settes til 0 når en bruker er registrert.
+* la til kode i index.html som viser highscore og username
+* endret ruten '/' i app.py slik at den sender spilleren til en avlogget versjon av spillet om de ikke er logget inn (index2.html)
+* endret koden i login ruten slik at den henter ut highscoren til spilleren
+* endret koden i app.py slik at highscore KUN oppdateres når current score er høyere enn highscore
+* la til kode i script.js som console logger 'score too low' om scoren er lavere enn highscore
