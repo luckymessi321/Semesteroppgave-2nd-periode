@@ -23,12 +23,22 @@ Fredag 6 Mars 2026
                                                                             kode i app.py som mottar registreringinfo fra '/register' ruten og lagrer infoen i MySQL tabellen 'users' i databasen 'login'.
                                                                             kode i app.py som mottar login-info fra '/login' ruten og henter lagret brukerinfo i MySQL tabellen 'users' i databasen 'login'.
                                                                             filen 'forms.py' som definerer 2 klasser 'RegisterForm' og 'LoginForm' som blir importert og brukt i app.py.
+
 * tilpasset de importerte filene nevnt ovenfor. disse endringene inkluderer: fjernet utfyllingsfeltene 'name' og 'adress' i 'register.html' og klassene definert i 'forms.py'.
                                                                              endret kode i app.py til å ikke motta navn og adresse i /register ruten. endret også 'brukernavn' og 'passord' variablene til 'username' og 'password'
                                                                              endret '/login' ruten i app.py slik at den sender brukeren til ruten '/' og ikke '/welcome'
                                                                              endret '/login' ruten i app.py slik at den henter ut 'username' og ikke 'navn' i cur.execute()
                                                                              oppdaterte funksjonen 'get_conn()' i app.py slik at brukeren (user) stemmer med brukeren min på serveren
+
 * la til app.secret_key = "hemmelig-nok". denne koden er nødvendig for at rutene '/register' og '/login' skal fungere.
+
 * la til navigasjonsbar i base.html malen som vises på alle sider. navigasjonsbaren inneholder lenker til '/register', '/login' og '/' rutene.
+
 * stylet navigasjonsbar i styles.css slik at teksten ender opp på midten av skjermen og gjorde teksten større (30px).
+
 * la til titler for register.html og login.html sidene. oppdaterte også tittel for index.html til 'Solid Snake Game'
+
+* la til kode som lagrer highscore i MySQL databasen. den nye koden består av ruten '/save_score' i app.py (linje 86) og funksjonen sendScore() i script.js (linje 21). koden er bedre forklart i app.py og script.js kommentarene
+ruten '/save_score' er en rute som KUN aktiveres når data er mottatt (POST-request) fra sendScore funksjonen, og lagrer dataen i MySQL databasen under kolonnen 'score'
+funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sender scoren din til ruten i app.py. denne funksjonen kjører når spillet restarter
+

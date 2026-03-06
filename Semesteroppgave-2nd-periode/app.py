@@ -1,5 +1,6 @@
 # koden for funksjonen get_conn() og rutene ('/register') og ('/login') er limt inn fra en lærer sin presentasjon, men tilpasset prosjektet mitt. alle kommentarer er skrevet av meg unless stated otherwise
-from flask import Flask, render_template, redirect, session
+# koden for ruten '/save_score' er tatt fra en venn sitt prosjekt
+from flask import Flask, render_template, redirect, session, request
 import mysql.connector
 from forms import RegisterForm, LoginForm
 
@@ -72,13 +73,40 @@ def login():
         
         # kode som KUN kjører om spillerens brukernavn eksisterer
         if user:
-            session['username'] = user[0]  # lagrer brukernavn i session-data
+            # lagrer brukernavn i session-data og sender spilleren til '/' ruten
+            session['username'] = user[0]
             return redirect("/")
         # returnerer feilmelding om brukernavn ikke finnes
         else:
             form.username.errors.append("Invalid username or password")
 
     return render_template("login.html", form=form)
+
+# oppretter ruten '/save_score' slik at app.py kan sende data til 'script.js' og motta data fra 'script.js'
+@app.route('/save_score', methods=["POST"]) # methods=["POST"] får koden til å KUN aktivere når ruten får en POST-request (mottar data)
+# funksjon som henter score fra 'script.js' og lagrer det i MySQL databasen
+def save_score():
+    # henter brukernavnet til brukeren lagret i '/login' ruten
+    username = session.get('username')
+
+    #  utfører en GET-request til script.js, leser resultatet som en JSON fil, konverterer resultatet til python format (.py), og lagrer resultatet som variablen 'data'. dette lar dataen bli brukt med metoder som .get(). 
+    data = request.get_json()
+    # lagrer verdien av nøkkelen 'score' i GET-requesten definert over som variablen score
+    score = data.get('score')
+
+    conn = get_conn()
+    cur = conn.cursor()
+    # kjører MySQL kode på serveren som oppdaterer 'score' verdien under den innloggede til å være scoren hentet fra script.js 
+    cur.execute('UPDATE users SET score = %s WHERE username = %s', (score, username))
+
+    # lagrer endringene gjort i cur.execute() og lukker tilkoblingen
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    # sender ordboken 'status : success' til script.js
+    return{'status': 'success'}
+
 
 if __name__ == "__main__":
     app.run(debug=True)
