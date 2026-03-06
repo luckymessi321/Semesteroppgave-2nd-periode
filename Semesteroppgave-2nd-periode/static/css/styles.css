@@ -3,6 +3,11 @@ html, body {
     padding: 10;
 }
 
+nav {
+    text-align: center;
+    font-size: 30px;
+}
+
 .grid {
     display: flex;
     flex-wrap: wrap;

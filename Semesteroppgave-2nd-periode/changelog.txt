@@ -28,3 +28,7 @@ Fredag 6 Mars 2026
                                                                              endret '/login' ruten i app.py slik at den sender brukeren til ruten '/' og ikke '/welcome'
                                                                              endret '/login' ruten i app.py slik at den henter ut 'username' og ikke 'navn' i cur.execute()
                                                                              oppdaterte funksjonen 'get_conn()' i app.py slik at brukeren (user) stemmer med brukeren min på serveren
+* la til app.secret_key = "hemmelig-nok". denne koden er nødvendig for at rutene '/register' og '/login' skal fungere.
+* la til navigasjonsbar i base.html malen som vises på alle sider. navigasjonsbaren inneholder lenker til '/register', '/login' og '/' rutene.
+* stylet navigasjonsbar i styles.css slik at teksten ender opp på midten av skjermen og gjorde teksten større (30px).
+* la til titler for register.html og login.html sidene. oppdaterte også tittel for index.html til 'Solid Snake Game'
