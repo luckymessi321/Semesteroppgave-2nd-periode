@@ -1,2 +1,4 @@
+lage en register page med brukernavn og passord
 lage en login page med brukernavn og passord
-lage en database med MySQL med 
+implementere kode i app.py som mottar register- og login-info og lagrer det i en MySQL database
+implementere kode som lagrer highscoren din i MySQL databasen

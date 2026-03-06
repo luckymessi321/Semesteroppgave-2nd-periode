@@ -17,3 +17,10 @@ Tirsdag 3 Mars 2026
 * endret koden slik at den bruker setTimeout og ikke setInterval. dette gjør sånn at intervallet til move funksjonen kan endres i selve move funksjonen
 * la til kode som lar spilleren starte og restarte spillet ved å trykke på start/restart knappen
 * endret koden slik at spillet KUN starter når start knappen er trykket og restarter spillet om start knappen allerede har blitt trykket
+
+Fredag 6 Mars 2026
+* importerte filer og kode fra en lærer sin presentasjon. dette inkluderer: malene 'register.html' og 'login.html', som mottar registreringsinfo og login-info fra brukeren og POST-er det til app.py i rutene '/register' og '/login'.
+                                                                            kode i app.py som mottar registreringinfo fra '/register' ruten og lagrer infoen i MySQL tabellen 'users' i databasen 'login'.
+                                                                            kode i app.py som mottar login-info fra '/login' ruten og henter lagret brukerinfo i MySQL tabellen 'users' i databasen 'login'.
+                                                                            filen 'forms.py' som definerer 2 klasser 'RegisterForm' og 'LoginForm' som blir importert og brukt i app.py.
+
