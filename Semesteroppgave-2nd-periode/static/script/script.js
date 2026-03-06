@@ -1,3 +1,4 @@
+// koden for funksjonen 'sendScore(score)' er tatt fra en venn sitt prosjekt
 const grid = document.getElementsByClassName("grid")[0] 
 const startDisplayButton = document.getElementById("start")
 const score = document.getElementById("score")
