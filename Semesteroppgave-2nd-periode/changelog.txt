@@ -23,4 +23,8 @@ Fredag 6 Mars 2026
                                                                             kode i app.py som mottar registreringinfo fra '/register' ruten og lagrer infoen i MySQL tabellen 'users' i databasen 'login'.
                                                                             kode i app.py som mottar login-info fra '/login' ruten og henter lagret brukerinfo i MySQL tabellen 'users' i databasen 'login'.
                                                                             filen 'forms.py' som definerer 2 klasser 'RegisterForm' og 'LoginForm' som blir importert og brukt i app.py.
-
+* tilpasset de importerte filene nevnt ovenfor. disse endringene inkluderer: fjernet utfyllingsfeltene 'name' og 'adress' i 'register.html' og klassene definert i 'forms.py'.
+                                                                             endret kode i app.py til å ikke motta navn og adresse i /register ruten. endret også 'brukernavn' og 'passord' variablene til 'username' og 'password'
+                                                                             endret '/login' ruten i app.py slik at den sender brukeren til ruten '/' og ikke '/welcome'
+                                                                             endret '/login' ruten i app.py slik at den henter ut 'username' og ikke 'navn' i cur.execute()
+                                                                             oppdaterte funksjonen 'get_conn()' i app.py slik at brukeren (user) stemmer med brukeren min på serveren

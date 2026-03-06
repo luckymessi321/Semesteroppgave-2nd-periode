@@ -1,14 +1,14 @@
-<!--denne filen er limt inn fra en lærer sin presentasjon-->
+<!--denne filen er limt inn fra en lærer sin presentasjon, men tilpasset til prosjektet mitt-->
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Registrer ny bruker</h2>
+<h2>Register new user</h2>
 <form method="POST">
     {{ form.hidden_tag() }}
-    {{ form.name.label }} {{ form.name }}<br>
+    <!-- utfyllingsfelt med brukernavn og passord-->
     {{ form.username.label }} {{ form.username }}<br>
     {{ form.password.label }} {{ form.password }}<br>
-    {{ form.address.label }} {{ form.address }}<br>
+    <!-- submit-knapp som sender registrert info fra feltene over til app.py-->
     {{ form.submit }}
 </form>
 {% endblock %}
