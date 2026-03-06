@@ -48,3 +48,4 @@ funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sen
 * endret koden i login ruten slik at den henter ut highscoren til spilleren
 * endret koden i app.py slik at highscore KUN oppdateres når current score er høyere enn highscore
 * la til kode i script.js som console logger 'score too low' om scoren er lavere enn highscore
+* la til README fil
