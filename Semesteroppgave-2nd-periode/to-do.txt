@@ -1,1 +1,1 @@
-implementere kode som lagrer highscoren din i MySQL databasen
+legge til flere funksjoner i Manage User som f.eks 'Delete User' eller 'Edit User'
