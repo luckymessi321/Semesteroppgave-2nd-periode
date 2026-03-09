@@ -65,3 +65,10 @@ Mandag 9 Mars 2026
 * la til Manage User siden i navigasjonsbaren
 * la til et nytt felt i den avloggede versjonen av spillet (index2.html) som forteller deg at du ikke er logget inn
 * la til tekst i index.html som forklarer hvordan man oppdaterer highscore
+script.js:
+* endret koden i script.js slik at spillet FAKTISK stopper.
+* la til variabelen 'gameStopped' som kontrollerer om spillet er stoppet.
+* la til kode som setter gameStopped til true og gir spilleren en popup 'Game over!' når spillet er over.
+* la til kode som setter gameStopped til false når spillet startes og restartes.
+* gjorde move-timeout om til en variabel slik at timeout-en kan stoppes med clearTimeout().
+* fikset problem der slangen kunne snu seg inn i seg selv (teknisk sett fortsatt mulig, men mye vanskeligere enn før)

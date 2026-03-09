@@ -8,13 +8,15 @@ const voiceline = new Audio('static/audio/voiceline.mp3')
 const ammo = new Audio('static/audio/ammo.mp3')
 const snake = new Audio('static/audio/snake.mp3')
 let buttonPressed = false
+let gameStopped = false
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
 let gridWidth = 10
 let appleIndex = 0
 let count = 0
-let currentInterval = 1000  
+let currentInterval = 1000
+let moveTimeout;
 music.volume = 0.5
 snake.volume = 0.5
 
@@ -32,7 +34,7 @@ function sendScore(score) {
     })
     // leser JSON-dataen (response) KUN når dataen er mottatt fra app.py i 'fetch()' funksjonen og konverterer det til et javascript objekt slik at script.js kan lese det
     .then(response => response.json())
-    // dette utføres KUN når mer data er mottatt etter det første 'then' statementet. denne dataen sendes fra app.py på linje 107
+    // dette utføres KUN når mer data er mottatt etter det første 'then' statementet. denne dataen sendes fra app.py
     .then(data => {
         // logger at score ble lagret og dataen mottatt i webkonsollen. denne koden kjører KUN om nøkkelen 'status' i ordboken data har verdien 'success'
         if(data.status === 'success'){
@@ -78,6 +80,9 @@ function restartGame () {
     updateScore()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     generateApple()
+    gameStopped = false
+    clearTimeout(moveTimeout)
+    move()
     console.log('game restarted')
 }
 
@@ -124,6 +129,9 @@ function move() {
         direction = 0
         music.pause()
         console.log('game stopped')
+        gameStopped = true
+        currentInterval = 1000
+        alert('Game over!')
         restartGame()
     } else {
         //fjerner siste element/firkant i currentSnake tabellen
@@ -154,7 +162,9 @@ function move() {
             }
         }
     }
-    setTimeout(move, currentInterval)
+    if (!gameStopped) {
+        moveTimeout = setTimeout(move, currentInterval)
+    }
 }
 
 function generateApple () {
@@ -179,11 +189,11 @@ function control(e) {
   // Use string values for the 'e.key' property for modern compatibility
   if (e.key === 'ArrowRight' && direction != -1) {
     direction = 1
-  } else if (e.key === 'ArrowUp') {
+  } else if (e.key === 'ArrowUp' && direction != gridWidth) {
     direction = -gridWidth
-  } else if (e.key === 'ArrowLeft') {
+  } else if (e.key === 'ArrowLeft' && direction != 1) {
     direction = -1
-  } else if (e.key === 'ArrowDown') {;
+  } else if (e.key === 'ArrowDown' && direction != -gridWidth) {;
     direction = +gridWidth
   }
 }
