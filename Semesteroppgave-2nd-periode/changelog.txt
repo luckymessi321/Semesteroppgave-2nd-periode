@@ -57,14 +57,29 @@ funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sen
 * la til nytt script for avlogget versjon (script2.js). scriptet er det samme scriptet som script.js, men uten sendScore funksjonen.
 
 Mandag 9 Mars 2026
+base.html:
+* la til Manage User siden i navigasjonsbaren
+
+manage.html
 * la til en ny side 'Manage User' der brukeren kan logge ut av kontoen sin.
 * la til en ny mal 'manage.html'
+
+app.py:
 * la til en ny rute '/manage' som laster inn malen 'manage.html' i app.py
+
+forms.py
 * la til en ny form 'LogoutForm' i forms.py som inneholder et submit felt. om brukeren submitter, får de en popup som spør dem om de er sikre på at de vil logge ut. om brukeren trykker 'OK', slettes all session data (med andre ord logges de ut)
+* la til 2 nye forms 'EditForm' og 'DeleteForm'. EditForm og DeleteForm inneholder 'username' og 'password' felt slik at brukeren må skrive inn brukernavn og passord før de endrer noe. EditForm inneholder 'editUsername' og 'editPassword' felt der brukeren kan endre brukernavn eller passord
+
+manage.js:
 * la til et script 'manage.js' for confirm popup-en.
-* la til Manage User siden i navigasjonsbaren
-* la til et nytt felt i den avloggede versjonen av spillet (index2.html) som forteller deg at du ikke er logget inn
+
+index.html:
 * la til tekst i index.html som forklarer hvordan man oppdaterer highscore
+
+index2.html:
+* la til et nytt felt i den avloggede versjonen av spillet (index2.html) som forteller deg at du ikke er logget inn
+
 script.js:
 * endret koden i script.js slik at spillet FAKTISK stopper.
 * la til variabelen 'gameStopped' som kontrollerer om spillet er stoppet.
@@ -72,4 +87,6 @@ script.js:
 * la til kode som setter gameStopped til false når spillet startes og restartes.
 * gjorde move-timeout om til en variabel slik at timeout-en kan stoppes med clearTimeout().
 * fikset problem der slangen kunne snu seg inn i seg selv (teknisk sett fortsatt mulig, men mye vanskeligere enn før)
+
+script2.js
 * oppdaterte scriptet for avlogget versjon ved å kopiere kode fra script.js og lime den inn i script2.js
