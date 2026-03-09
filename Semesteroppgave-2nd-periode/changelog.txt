@@ -72,3 +72,4 @@ script.js:
 * la til kode som setter gameStopped til false når spillet startes og restartes.
 * gjorde move-timeout om til en variabel slik at timeout-en kan stoppes med clearTimeout().
 * fikset problem der slangen kunne snu seg inn i seg selv (teknisk sett fortsatt mulig, men mye vanskeligere enn før)
+* oppdaterte scriptet for avlogget versjon ved å kopiere kode fra script.js og lime den inn i script2.js
