@@ -64,3 +64,4 @@ Mandag 9 Mars 2026
 * la til et script 'manage.js' for confirm popup-en.
 * la til Manage User siden i navigasjonsbaren
 * la til et nytt felt i den avloggede versjonen av spillet (index2.html) som forteller deg at du ikke er logget inn
+* la til tekst i index.html som forklarer hvordan man oppdaterer highscore
