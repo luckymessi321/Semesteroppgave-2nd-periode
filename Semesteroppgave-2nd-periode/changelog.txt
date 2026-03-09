@@ -63,3 +63,4 @@ Mandag 9 Mars 2026
 * la til en ny form 'LogoutForm' i forms.py som inneholder et submit felt. om brukeren submitter, får de en popup som spør dem om de er sikre på at de vil logge ut. om brukeren trykker 'OK', slettes all session data (med andre ord logges de ut)
 * la til et script 'manage.js' for confirm popup-en.
 * la til Manage User siden i navigasjonsbaren
+* la til et nytt felt i den avloggede versjonen av spillet (index2.html) som forteller deg at du ikke er logget inn
