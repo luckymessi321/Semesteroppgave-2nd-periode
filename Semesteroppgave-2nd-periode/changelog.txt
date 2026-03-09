@@ -55,3 +55,11 @@ funksjonen sendScore(score) er en funksjon som henter '/save_score' ruten og sen
 * la til kommentaren 'koden for funksjonen 'sendScore(score)' er tatt fra en venn sitt prosjekt' i script.js
 * redigerte readme fil
 * la til nytt script for avlogget versjon (script2.js). scriptet er det samme scriptet som script.js, men uten sendScore funksjonen.
+
+Mandag 9 Mars 2026
+* la til en ny side 'Manage User' der brukeren kan logge ut av kontoen sin.
+* la til en ny mal 'manage.html'
+* la til en ny rute '/manage' som laster inn malen 'manage.html' i app.py
+* la til en ny form 'LogoutForm' i forms.py som inneholder et submit felt. om brukeren submitter, får de en popup som spør dem om de er sikre på at de vil logge ut. om brukeren trykker 'OK', slettes all session data (med andre ord logges de ut)
+* la til et script 'manage.js' for confirm popup-en.
+* la til Manage User siden i navigasjonsbaren

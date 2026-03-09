@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Manage User {% endblock %}
+{% block content %}
+<script src="/static/script/manage.js"></script>
+<h1>Manage User</h1>
+
+<form method="POST" onsubmit="return confirmLogout();">
+    {{ form.hidden_tag() }}
+    {{ form.submit }}
+</form>
+{% endblock %}  
