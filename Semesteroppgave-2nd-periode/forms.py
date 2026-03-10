@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired
 
-# oppretter 3 nye klasser; 'RegisterForm', 'LoginForm og 'LogoutForm'
+# oppretter 5 nye klasser; 'RegisterForm', 'LoginForm', 'LogoutForm', 'EditForm', 'DeleteForm'
 class RegisterForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
