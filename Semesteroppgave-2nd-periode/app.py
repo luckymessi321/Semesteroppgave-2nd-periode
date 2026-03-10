@@ -67,17 +67,17 @@ def login():
 
         conn = get_conn()
         cur = conn.cursor()
-        # kjører MySQL kode på serveren som henter brukernavnet til brukeren spilleren logget inn med
+        # kjører MySQL kode på serveren som henter brukernavnet og scoren til brukeren spilleren logget inn med
         cur.execute(
             "SELECT username, score FROM users WHERE username=%s AND password=%s",
             (username, password)
         )
-        # lagrer brukernavnet som variablen 'user'
+        # lagrer brukernavn og score som variablen 'user'
         user = cur.fetchone()
         cur.close()
         conn.close()
         
-        # kode som KUN kjører om spillerens brukernavn eksisterer
+        # kode som KUN kjører om brukeren eksisterer
         if user:
             # lagrer brukernavn og score i session-data og sender spilleren til '/' ruten
             session['username'] = user[0]
@@ -91,6 +91,7 @@ def login():
 
 @app.route("/manage", methods=["GET", "POST"])
 def manage():
+    username = session.get('username')
     form = LogoutForm()
     form2 = EditForm()
     form3 = DeleteForm()
@@ -103,6 +104,35 @@ def manage():
         password1 = form2.password1.data
         editUsername = form2.editUsername.data
         editPassword = form2.editPassword.data
+        
+        # sjekker om brukernavnet spilleren fylte inn stemmer med brukernavnet lagret i session. dette gjøres for å sikre at det ikke er mulig å endre en bruker uten å være logget inn med den
+        if username1 == username:
+            conn = get_conn()
+            cur = conn.cursor()
+
+            # kjører kode som henter info lagret om brukeren
+            cur.execute('SELECT username, password FROM users where username=%s AND password=%s', (username1, password1))
+            user = cur.fetchone()
+            cur.close()
+            conn.close()
+
+            # sjekker om en bruker med brukernavnet og passordet brukeren skrev inn eksisterer
+            if user:
+                conn = get_conn()
+                cur = conn.cursor()
+                # oppdaterer brukernavn og passord til brukeren
+                cur.execute('UPDATE users SET username=%s, password=%s WHERE username=%s AND password=%s', (editUsername, editPassword, username1, password1))
+                # oppdaterer session data for username
+                session['username'] = user[0]
+                conn.commit()
+                cur.close()
+                conn.close()
+            else:
+                # gir brukeren en feilmelding
+                form2.password1.errors.append("Password doesnt match your current user's password")
+            
+        else:
+            form2.username1.errors.append("Username doesnt match the current user's username")
 
     if form3.validate_on_submit():
         username2 = form3.username2.data

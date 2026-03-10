@@ -96,3 +96,4 @@ Tirsdag 10 Mars 2026
 app.py:
 * importerte klassene 'EditForm' og 'DeleteForm' fra forms.py
 * definerte 2 nye forms av klassen EditForm og DeleteForm under ruten '/manage'
+* la til kode som oppdaterer database og session data under form2 (klasse EditForm) i app.py. se kommentarene under if form2.validate_on_submit(): i rute '/manage' i app.py for detaljert forklaring.
