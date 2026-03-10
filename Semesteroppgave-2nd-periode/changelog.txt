@@ -93,6 +93,6 @@ script2.js
 
 Tirsdag 10 Mars 2026
 
-forms.py:
-* definerte en ny klasse 'EditForm' med feltene 'username1', 'password1' (tvinger brukeren til å skrive inn brukernavn og passord før de kan redigere brukerinfo), 'editUsername' og 'editPassword' (inputfelt som bestemmer hva brukernavn og passord skal endres til)
-* definerte en ny klasse 'DeleteForm' med feltene 'username2' og 'password2' (tvinger brukeren til å skrive inn brukernavn og passord før de kan slette brukeren)
+app.py:
+* importerte klassene 'EditForm' og 'DeleteForm' fra forms.py
+* definerte 2 nye forms av klassen EditForm og DeleteForm under ruten '/manage'

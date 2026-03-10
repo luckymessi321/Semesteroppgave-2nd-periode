@@ -2,7 +2,7 @@
 # koden for ruten '/save_score' er tatt fra en venn sitt prosjekt
 from flask import Flask, render_template, redirect, session, request
 import mysql.connector
-from forms import RegisterForm, LoginForm, LogoutForm
+from forms import RegisterForm, LoginForm, LogoutForm, EditForm, DeleteForm
 
 
 app = Flask(__name__)
@@ -92,10 +92,22 @@ def login():
 @app.route("/manage", methods=["GET", "POST"])
 def manage():
     form = LogoutForm()
+    form2 = EditForm()
+    form3 = DeleteForm()
     if form.validate_on_submit():
         session.pop('username')
         session.pop('score')
-    return render_template('manage.html', form=form)
+
+    if form2.validate_on_submit():
+        username1 = form2.username1.data
+        password1 = form2.password1.data
+        editUsername = form2.editUsername.data
+        editPassword = form2.editPassword.data
+
+    if form3.validate_on_submit():
+        username2 = form3.username2.data
+        password2 = form3.password2.data
+    return render_template('manage.html', form=form, form2=form2, form3=form3)
 
 # oppretter ruten '/save_score' slik at app.py kan sende data til 'script.js' og motta data fra 'script.js'
 @app.route('/save_score', methods=["POST"]) # methods=["POST"] får koden til å KUN aktivere når ruten får en POST-request (mottar data)
