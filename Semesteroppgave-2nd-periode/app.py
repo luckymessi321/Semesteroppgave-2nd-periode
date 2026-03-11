@@ -96,13 +96,13 @@ def manage():
     form2 = EditForm()
     form3 = DeleteForm()
 
-    # logout kode
+    # Logout form
     if form.submit.data and form.validate_on_submit():
+        # sletter session dataen til brukeren
         session.pop('username')
         session.pop('score')
-        print('logoutsubmit')
 
-    # edit user kode
+    # Edit User form
     if form2.submitEdit.data and form2.validate_on_submit():
         username1 = form2.username1.data
         password1 = form2.password1.data
@@ -114,17 +114,18 @@ def manage():
             conn = get_conn()
             cur = conn.cursor()
 
-            # kjører kode som henter info lagret om brukeren
+            # kjører kode som henter info lagret om brukeren i databasen
             cur.execute('SELECT username, password FROM users where username=%s AND password=%s', (username1, password1))
-            user2 = cur.fetchone()
+            user = cur.fetchone()
             cur.close()
             conn.close()
 
             # sjekker om en bruker med brukernavnet og passordet brukeren skrev inn eksisterer
-            if user2:
+            if user:
                 conn = get_conn()
                 cur = conn.cursor()
-                # oppdaterer brukernavn og passord til brukeren
+
+                # oppdaterer brukernavn og passord til brukeren i databasen
                 cur.execute('UPDATE users SET username=%s, password=%s WHERE username=%s AND password=%s', (editUsername, editPassword, username1, password1))
                 conn.commit()
                 cur.close()
@@ -132,14 +133,19 @@ def manage():
             
                 conn = get_conn()
                 cur = conn.cursor()
+
+                # henter brukernavn og score til brukeren som nettopp ble endret og lagrer dataen i en variabel 'user2'
                 cur.execute('SELECT username, score FROM users WHERE username = %s', (editUsername,))
-                user = cur.fetchone()
+                user2 = cur.fetchone()
+
                 cur.close()
                 conn.close()
 
-                if user:
-                    session['username'] = user[0]
-                    session['score'] = user[1]
+                # sjekker om data ble lagret i user2
+                if user2:
+                    # oppdaterer session data til å matche brukernavn og score til den redigerte brukeren
+                    session['username'] = user2[0]
+                    session['score'] = user2[1]
             else:
                 # gir brukeren en feilmelding
                 form2.password1.errors.append("Password doesnt match your current user's password")
@@ -147,9 +153,41 @@ def manage():
         else:
             form2.username1.errors.append("Username doesnt match the current user's username")
 
+    # Delete User form
     if form3.submitDelete.data and form3.validate_on_submit():
         username2 = form3.username2.data
         password2 = form3.password2.data
+
+         # sjekker om brukernavnet spilleren fylte inn stemmer med brukernavnet lagret i session. dette gjøres for å sikre at det ikke er mulig å slette en bruker uten å være logget inn med den
+        if username2 == username:
+            conn = get_conn()
+            cur = conn.cursor()
+
+            # lagrer info til brukeren som en variabel 'user3'
+            cur.execute('SELECT username, password FROM users WHERE username=%s AND password=%s', (username2, password2))
+            user3 = cur.fetchone()
+
+            cur.close()
+            conn.close()
+
+            # sjekker om en bruker med brukernavnet og passordet brukeren skrev inn eksisterer
+            if user3:
+                conn = get_conn()
+                cur = conn.cursor()
+
+                # kjører kode som sletter brukeren fra databasen
+                cur.execute('DELETE FROM users WHERE username=%s AND password=%s', (username2, password2))
+                conn.commit()
+                cur.close()
+                conn.close()
+                # sletter session dataen til brukeren
+                session.pop('username')
+                session.pop('score')
+            else:
+                form3.password2.errors.append("Password doesnt match your current user's password")
+        else:
+            form3.username2.errors.append("Username doesnt match the current user's username")
+
     return render_template('manage.html', form=form, form2=form2, form3=form3)
 
 # oppretter ruten '/save_score' slik at app.py kan sende data til 'script.js' og motta data fra 'script.js'
