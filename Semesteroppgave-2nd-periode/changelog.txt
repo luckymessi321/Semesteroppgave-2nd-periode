@@ -106,8 +106,12 @@ app.py:
 forms.py:
 * oppdaterte forms.py koden under class EditForm slik at det står 'New Username' og 'New Password' ved utfyllingsfeltene 'editUsername' og 'editPassword' (pleide å stå 'Username' og 'Password')
 
+manage.js:
+* la til funksjonen 'confirmEdit' som gir deg en popup som spør om du er sikker på at du vil redigere brukeren din
+
 manage.html:
 * la til et nytt form element av klassen EditForm der brukeren kan redigere brukernavn eller passord.
+* la til funksjonen confirmEdit onsubmit i Edit User formen slik at spilleren kun får popup-en om de submitter formen.
 
 script.js:
 * flyttet linjen 'gameStopped = false' til å være over clearTimeout linjen
