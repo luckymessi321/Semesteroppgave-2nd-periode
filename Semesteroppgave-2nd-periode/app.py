@@ -95,11 +95,15 @@ def manage():
     form = LogoutForm()
     form2 = EditForm()
     form3 = DeleteForm()
-    if form.validate_on_submit():
+
+    # logout kode
+    if form.submit.data and form.validate_on_submit():
         session.pop('username')
         session.pop('score')
+        print('logoutsubmit')
 
-    if form2.validate_on_submit():
+    # edit user kode
+    if form2.submitEdit.data and form2.validate_on_submit():
         username1 = form2.username1.data
         password1 = form2.password1.data
         editUsername = form2.editUsername.data
@@ -112,21 +116,30 @@ def manage():
 
             # kjører kode som henter info lagret om brukeren
             cur.execute('SELECT username, password FROM users where username=%s AND password=%s', (username1, password1))
-            user = cur.fetchone()
+            user2 = cur.fetchone()
             cur.close()
             conn.close()
 
             # sjekker om en bruker med brukernavnet og passordet brukeren skrev inn eksisterer
-            if user:
+            if user2:
                 conn = get_conn()
                 cur = conn.cursor()
                 # oppdaterer brukernavn og passord til brukeren
                 cur.execute('UPDATE users SET username=%s, password=%s WHERE username=%s AND password=%s', (editUsername, editPassword, username1, password1))
-                # oppdaterer session data for username
-                session['username'] = user[0]
                 conn.commit()
                 cur.close()
                 conn.close()
+            
+                conn = get_conn()
+                cur = conn.cursor()
+                cur.execute('SELECT username, score FROM users WHERE username = %s', (editUsername,))
+                user = cur.fetchone()
+                cur.close()
+                conn.close()
+
+                if user:
+                    session['username'] = user[0]
+                    session['score'] = user[1]
             else:
                 # gir brukeren en feilmelding
                 form2.password1.errors.append("Password doesnt match your current user's password")
@@ -134,7 +147,7 @@ def manage():
         else:
             form2.username1.errors.append("Username doesnt match the current user's username")
 
-    if form3.validate_on_submit():
+    if form3.submitDelete.data and form3.validate_on_submit():
         username2 = form3.username2.data
         password2 = form3.password2.data
     return render_template('manage.html', form=form, form2=form2, form3=form3)
