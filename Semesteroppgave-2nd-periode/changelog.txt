@@ -105,7 +105,8 @@ app.py:
 * la til kode til Delete User form. se kommentarene i app.py for detaljert forklaring.
 
 forms.py:
-* oppdaterte forms.py koden under class EditForm slik at det står 'New Username' og 'New Password' ved utfyllingsfeltene 'editUsername' og 'editPassword' (pleide å stå 'Username' og 'Password')
+* oppdaterte koden under class EditForm slik at det står 'New Username' og 'New Password' ved utfyllingsfeltene 'editUsername' og 'editPassword' (pleide å stå 'Username' og 'Password')
+* oppdaterte username og password felt i EditForm og DeleteForm slik at det viser 'Confirm Username' og 'Confirm Password' (pleide å vise 'Username' og 'Password')
 
 manage.js:
 * la til funksjonen 'confirmEdit' som gir deg en popup som spør om du er sikker på at du vil redigere brukeren din
