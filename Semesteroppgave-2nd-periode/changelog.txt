@@ -102,3 +102,7 @@ Onsdag 11 Mars 2026
 
 app.py:
 * fikset problem der kode under alle 'if validate_on_submit' deler av koden kjørte selv om kun en form ble submitted. dette gjorde jeg ved å endre alle linjer under ruten '/manage' som inneholder 'if form.validate_on_submit' (f.eks if form2.validate_on_submit) til 'if form.submit.data and form.validate_on_submit' (f.eks if form2.submitEdit.data and form2.validate_on_submit). dette sørger for at kun validate_on_submit koden til formen submitted kjører
+
+forms.py:
+* oppdaterte forms.py koden under class EditForm slik at det står 'New Username' og 'New Password' ved utfyllingsfeltene 'editUsername' og 'editPassword' (pleide å stå 'Username' og 'Password')
+ 

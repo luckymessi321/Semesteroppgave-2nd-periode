@@ -19,8 +19,8 @@ class LogoutForm(FlaskForm):
 class EditForm(FlaskForm):
     username1 = StringField("Username", validators=[InputRequired()])
     password1 = PasswordField("Password", validators=[InputRequired()])
-    editUsername = StringField("Username", validators=[InputRequired()])
-    editPassword = PasswordField("Password", validators=[InputRequired()])
+    editUsername = StringField("New Username", validators=[InputRequired()])
+    editPassword = PasswordField("New Password", validators=[InputRequired()])
     submitEdit = SubmitField("Save changes to user")
 
 
