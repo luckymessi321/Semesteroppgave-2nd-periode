@@ -1,1 +1,1 @@
-legge til flere funksjoner i Manage User som f.eks 'Delete User' eller 'Edit User'
+legge til flere funksjoner i Manage User som 'Delete User'
