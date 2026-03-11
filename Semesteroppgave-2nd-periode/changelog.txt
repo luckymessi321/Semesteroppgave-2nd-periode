@@ -108,3 +108,6 @@ forms.py:
 
 manage.html:
 * la til et nytt form element av klassen EditForm der brukeren kan redigere brukernavn eller passord.
+
+script.js:
+* flyttet linjen 'gameStopped = false' til å være over clearTimeout linjen

@@ -80,8 +80,8 @@ function restartGame () {
     updateScore()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     generateApple()
-    gameStopped = false
     clearTimeout(moveTimeout)
+    gameStopped = false
     move()
     console.log('game restarted')
 }
@@ -126,13 +126,12 @@ function move() {
         (currentSnake[0] % 10 === 9 && direction === 1) || // om snake head er ved høyre vegg av grid
         squares[currentSnake[0] + direction].classList.contains('snake') // om snake crasher i seg selv
     ) {
-        direction = 0
         music.pause()
         console.log('game stopped')
         gameStopped = true
-        currentInterval = 1000
         alert('Game over!')
         restartGame()
+        return
     } else {
         //fjerner siste element/firkant i currentSnake tabellen
         const tail = currentSnake.pop()
