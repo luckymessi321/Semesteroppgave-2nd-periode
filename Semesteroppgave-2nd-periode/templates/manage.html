@@ -12,6 +12,7 @@
 </form>
 
 <!-- Edit User form -->
+ <h2>Edit User</h2>
 <form method="POST" onsubmit="return confirmEdit();">
     {{ form2.hidden_tag() }}
     {{ form2.username1.label }} {{ form2.username1 }} <br>
@@ -23,6 +24,21 @@
         <p style="color:red">{{ error }}</p>
     {% endfor %}
     {% for error in form2.password1.errors %}
+        <p style="color:red">{{ error }}</p>
+    {% endfor %}
+</form>
+
+<!-- Delete User form -->
+ <h2>Delete User</h2>
+<form method="POST">
+    {{ form3.hidden_tag() }}
+    {{ form3.username2.label }} {{ form3.username2 }} <br>
+    {{ form3.password2.label }} {{ form3.password2 }} <br>
+    {{ form3.submitDelete }}
+    {% for error in form3.username2.errors %}
+        <p style="color:red">{{ error }}</p>
+    {% endfor %}
+    {% for error in form3.password2.errors %}
         <p style="color:red">{{ error }}</p>
     {% endfor %}
 </form>

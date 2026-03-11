@@ -114,6 +114,7 @@ manage.js:
 manage.html:
 * la til et nytt form element av klassen EditForm der brukeren kan redigere brukernavn eller passord.
 * la til funksjonen confirmEdit onsubmit i Edit User formen slik at spilleren kun får popup-en om de submitter formen.
+* la til et nytt form element av klassen DeleteForm der brukeren kan slette brukeren sin.
 
 script.js:
 * flyttet linjen 'gameStopped = false' til å være over clearTimeout linjen
