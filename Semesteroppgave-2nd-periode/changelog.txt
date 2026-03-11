@@ -105,4 +105,6 @@ app.py:
 
 forms.py:
 * oppdaterte forms.py koden under class EditForm slik at det står 'New Username' og 'New Password' ved utfyllingsfeltene 'editUsername' og 'editPassword' (pleide å stå 'Username' og 'Password')
- 
+
+manage.html:
+* la til et nytt form element av klassen EditForm der brukeren kan redigere brukernavn eller passord.

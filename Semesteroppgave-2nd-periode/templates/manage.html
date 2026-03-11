@@ -9,4 +9,19 @@
     {{ form.hidden_tag() }}
     {{ form.submit }}
 </form>
+
+<form method="POST">
+    {{ form2.hidden_tag() }}
+    {{ form2.username1.label }} {{ form2.username1 }} <br>
+    {{ form2.password1.label }} {{ form2.password1 }} <br>
+    {{ form2.editUsername.label }} {{ form2.editUsername }} <br>
+    {{ form2.editPassword.label }} {{ form2.editPassword }} <br>
+    {{ form2.submitEdit }}
+    {% for error in form2.username1.errors %}
+        <p style="color:red">{{ error }}</p>
+    {% endfor %}
+    {% for error in form2.password1.errors %}
+        <p style="color:red">{{ error }}</p>
+    {% endfor %}
+</form>
 {% endblock %}  
