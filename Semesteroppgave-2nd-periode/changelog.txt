@@ -110,11 +110,13 @@ forms.py:
 
 manage.js:
 * la til funksjonen 'confirmEdit' som gir deg en popup som spør om du er sikker på at du vil redigere brukeren din
+* la til funksjonen 'confirmDelete' som gir deg en popup som spør om du er sikker på at du vil slette brukeren din
 
 manage.html:
 * la til et nytt form element av klassen EditForm der brukeren kan redigere brukernavn eller passord.
 * la til funksjonen confirmEdit onsubmit i Edit User formen slik at spilleren kun får popup-en om de submitter formen.
 * la til et nytt form element av klassen DeleteForm der brukeren kan slette brukeren sin.
+* la til funksjonen confirmDelete onsubmit i Delete User formen slik at spilleren kun får popup-en om de submitter formen.
 
 script.js:
 * flyttet linjen 'gameStopped = false' til å være over clearTimeout linjen

@@ -6,3 +6,6 @@ function confirmEdit () {
     return confirm("Are you sure you want to edit your account?")
 }
 
+function confirmDelete () {
+    return confirm("Are you sure you want to delete your account?")
+}

@@ -30,7 +30,7 @@
 
 <!-- Delete User form -->
  <h2>Delete User</h2>
-<form method="POST">
+<form method="POST" onsubmit="return confirmDelete();">
     {{ form3.hidden_tag() }}
     {{ form3.username2.label }} {{ form3.username2 }} <br>
     {{ form3.password2.label }} {{ form3.password2 }} <br>
